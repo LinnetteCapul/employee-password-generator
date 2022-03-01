@@ -15,7 +15,8 @@ var confirmLower;
 var confirmNumeric;
 var confirmSpecial;
 var password = "";
-var userChoices;
+var userChoices = [];
+var passwordString = [];
 
 // Write password to the #password input
 function writePassword() {
@@ -29,55 +30,67 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 function generatePassword() {
-  passwordLength = prompt(
-    "How many characters would you like your password to be? Choose between 8 and 128 characters.");
-  console.log("Password Length" + passwordLength);
-
+  passwordLength = validatePasswordLength(prompt(
+    "How many characters would you like your password to be? Choose between 8 and 128 characters."));
+  
   confirmUpper = confirm("Will this contain any upper case letters?");
-  console.log("Upper case" + confirmUpper);
+  if (confirmUpper) {
+    pushChoices(upperCase)
+  }
 
   confirmLower = confirm("Will this contain any lower case letters?");
-  console.log("Lower case" + confirmLower);
+  if (confirmLower) {
+    pushChoices(lowerCase)
+  }
 
   confirmNumeric = confirm("Will this contain any numbers?");
-  console.log("Number" + confirmNumeric);
+  if (confirmNumeric) {
+    pushChoices(numeric)
+  }
 
   confirmSpecial = confirm("Will this contain any special characters?");
-  console.log("Special characters" + confirmSpecial);
+  if (confirmSpecial) {
+    pushChoices(specialCharacter)
+  }
+
+
+if (confirmUpper === false && confirmLower === false && confirmNumeric === false && confirmSpecial === false) {
+  alert("Please select at least one type of character.");
+  return generatePassword();
+}
+
+console.log(userChoices)
+generateRandomString(passwordLength);
+console.log(passwordString);
 }
 
 function validatePasswordLength(passwordLength) {
   if (passwordLength < 8 || passwordLength > 128) {
-    passwordLength = alert("Please enter a number between 8 and 128 characters.");
-    console.log("Password length" + passwordLength);
-
-  } else {
-    (passwordLength === NaN); {
-      passwordLength = alert("Please enter a number between 8 and 128 characters.");
-     return generatePassword();
-  }
-}
-}
-
-function validatePassword(userChoices) {
-  if (confirmUpper === true || confirmLower === true || confirmNumeric === true || confirmSpecial === true) {
-    console.log(userChoices);
-  
-  } else (confirmUpper === false && confirmLower === false && confirmNumeric === false && confirmSpecial === false); {
-    userChoices = alert("Please select at least one type of character.");
+    alert("Please enter a number between 8 and 128 characters.");
     return generatePassword();
+    
+  } else {
+     return passwordLength;
   }
 }
 
-var passwordCreate = "";
 
-for (var i= 0; i < passwordLength; i++) {
-  var allChoices = userChoices[Math.floor(Math.random() * userChoices.length)];
-  passwordCreate.push(allChoices);
-  console.log(allChoices);
 
+function pushChoices(charArray){
+  for (let i = 0; i < charArray.length; i++) {
+    const character = charArray[i];
+    userChoices.push(character);
+  }
 }
 
-var password = passwordCreate.join("");
-console.log("Password: " + password);
+function generateRandomString(numberOfChars) {
+  for (let i = 0; i < numberOfChars; i++) {
+    const randomIndex = Math.floor(Math.random() *numberOfChars);
+    passwordString.push(userChoices[randomIndex]);
+  }
+}
+
+// password = passwordCreate.join("");
+// console.log("Password: " + password);
+
 
