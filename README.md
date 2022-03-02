@@ -1,1 +1,9 @@
-# employee-password-generator
+# Employee Password Generator
+
+## Description
+
+
+## Links
+
+
+## Screenshot

@@ -35,35 +35,36 @@ function generatePassword() {
   
   confirmUpper = confirm("Will this contain any upper case letters?");
   if (confirmUpper) {
-    pushChoices(upperCase)
+    userChoices.push(upperCase)
   }
 
   confirmLower = confirm("Will this contain any lower case letters?");
   if (confirmLower) {
-    pushChoices(lowerCase)
+    userChoices.push(lowerCase)
   }
 
   confirmNumeric = confirm("Will this contain any numbers?");
   if (confirmNumeric) {
-    pushChoices(numeric)
+    userChoices.push(numeric)
   }
 
   confirmSpecial = confirm("Will this contain any special characters?");
   if (confirmSpecial) {
-    pushChoices(specialCharacter)
+    userChoices.push(specialCharacter)
   }
 
 
-if (confirmUpper === false && confirmLower === false && confirmNumeric === false && confirmSpecial === false) {
+if (!confirmUpper && !confirmLower && !confirmNumeric && !confirmSpecial) {
   alert("Please select at least one type of character.");
   return generatePassword();
 }
 
-console.log(userChoices)
-generateRandomString(passwordLength);
-console.log(passwordString);
+console.log(passwordLength)
+for (let i = 0; i < parseInt(passwordLength); i++) {
+  var randomChars = Math.floor(Math.random()*userChoices.length);
+  password += userChoices[randomChars]
+  return password;
 }
-
 function validatePasswordLength(passwordLength) {
   if (passwordLength < 8 || passwordLength > 128) {
     alert("Please enter a number between 8 and 128 characters.");
@@ -73,24 +74,28 @@ function validatePasswordLength(passwordLength) {
      return passwordLength;
   }
 }
+// function pushChoices(charArray){
+//   for (var i = 0; i < charArray.length; i++) {
+//     var character = charArray[i];
+//     pushChoices(character);
+//   }
+// }
 
-
-
-function pushChoices(charArray){
-  for (let i = 0; i < charArray.length; i++) {
-    const character = charArray[i];
-    userChoices.push(character);
-  }
-}
-
-function generateRandomString(numberOfChars) {
-  for (let i = 0; i < numberOfChars; i++) {
-    const randomIndex = Math.floor(Math.random() *numberOfChars);
+  for (var i = 0; i < numberOfChars; i++) {
+    var randomIndex = Math.floor(Math.random() *numberOfChars);
     passwordString.push(userChoices[randomIndex]);
-  }
+    generateRandomString(passwordLength);
 }
 
-// password = passwordCreate.join("");
+console.log(userChoices)
+
+console.log(passwordString);
+}
+
+
+
+
+// password = passwordString.join("");
 // console.log("Password: " + password);
 
 
