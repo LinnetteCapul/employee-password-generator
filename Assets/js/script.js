@@ -29,42 +29,49 @@ function writePassword() {
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
+// Prompts the question on password length. User must input number between 8 and 128
 function generatePassword() {
   passwordLength = validatePasswordLength(prompt(
     "How many characters would you like your password to be? Choose between 8 and 128 characters."));
   
+  // Ask if user wants upper case letters
   confirmUpper = confirm("Will this contain any upper case letters?");
   if (confirmUpper) {
     userChoices.push(upperCase)
   }
-
+  // Ask if user wants lower case letters
   confirmLower = confirm("Will this contain any lower case letters?");
   if (confirmLower) {
     userChoices.push(lowerCase)
   }
 
+  // Ask if user wants numbers
   confirmNumeric = confirm("Will this contain any numbers?");
   if (confirmNumeric) {
     userChoices.push(numeric)
   }
 
+  // Ask if user wants special characters
   confirmSpecial = confirm("Will this contain any special characters?");
   if (confirmSpecial) {
     userChoices.push(specialCharacter)
   }
 
-
+// Check if user selected at least one criteria for password
 if (!confirmUpper && !confirmLower && !confirmNumeric && !confirmSpecial) {
   alert("Please select at least one type of character.");
   return generatePassword();
 }
 
+// Randomize password based on user choices
 console.log(passwordLength)
 for (let i = 0; i < parseInt(passwordLength); i++) {
   var randomChars = Math.floor(Math.random()*userChoices.length);
   password += userChoices[randomChars]
   return password;
 }
+
+// Check if user selected number between 8 and 128 characters
 function validatePasswordLength(passwordLength) {
   if (passwordLength < 8 || passwordLength > 128) {
     alert("Please enter a number between 8 and 128 characters.");
@@ -74,28 +81,8 @@ function validatePasswordLength(passwordLength) {
      return passwordLength;
   }
 }
-// function pushChoices(charArray){
-//   for (var i = 0; i < charArray.length; i++) {
-//     var character = charArray[i];
-//     pushChoices(character);
-//   }
-// }
-
-  for (var i = 0; i < numberOfChars; i++) {
-    var randomIndex = Math.floor(Math.random() *numberOfChars);
-    passwordString.push(userChoices[randomIndex]);
-    generateRandomString(passwordLength);
-}
-
 console.log(userChoices)
 
 console.log(passwordString);
 }
-
-
-
-
-// password = passwordString.join("");
-// console.log("Password: " + password);
-
 
